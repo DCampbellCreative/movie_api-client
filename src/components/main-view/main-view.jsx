@@ -19,11 +19,19 @@ export default class MainView extends React.Component {
       };
     }
 
-    fetchMovies = (user) => {
+    componentDidMount() {
+      let accessToken = localStorage.getItem('token');
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        });
+        this.getMovies(accessToken);
+      }
+    }
+
+    getMovies(token) {
       axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        }
+        headers: { Authorization: `Bearer ${token}`}
       })
       .then(response => {
         this.setState({
@@ -41,12 +49,25 @@ export default class MainView extends React.Component {
     });
   }
   
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user
+      user: authData.user.Username
     });
-    this.fetchMovies(user);
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
+
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+  }
+  
     render() {
       const { user, movies, selectedMovie } = this.state;
 
@@ -72,11 +93,13 @@ export default class MainView extends React.Component {
             <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie) }}/>
             </Col>
           ))}
-          </Row>
+           </Row>
           )
     }
+<button onClick={() => { this.onLoggedOut() }}>Logout</button>
           </div>
-          </Container>
+         </Container>
       );
+     
     }
   }

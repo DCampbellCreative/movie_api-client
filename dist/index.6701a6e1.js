@@ -22918,10 +22918,19 @@ class MainView extends _reactDefault.default.Component {
             user: null
         };
     }
-    fetchMovies = (user)=>{
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
+            });
+            this.getMovies(accessToken);
+        }
+    }
+    getMovies(token) {
         _axiosDefault.default.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
             headers: {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
             this.setState({
@@ -22930,17 +22939,27 @@ class MainView extends _reactDefault.default.Component {
         }).catch((error)=>{
             console.log(error);
         });
-    };
+    }
     setSelectedMovie(movie) {
         this.setState({
             selectedMovie: movie
         });
     }
-    onLoggedIn(user) {
+    onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-            user
+            user: authData.user.Username
         });
-        this.fetchMovies(user);
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+    }
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
     }
     render() {
         const { user , movies , selectedMovie  } = this.state;
@@ -22949,7 +22968,7 @@ class MainView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 53
+                lineNumber: 74
             },
             __self: this
         }));
@@ -22957,77 +22976,90 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 55
+                lineNumber: 76
             },
             __self: this
         }));
         return(/*#__PURE__*/ _jsxRuntime.jsx(_containerDefault.default, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 58
+                lineNumber: 79
             },
             __self: this,
-            children: /*#__PURE__*/ _jsxRuntime.jsx("div", {
+            children: /*#__PURE__*/ _jsxRuntime.jsxs("div", {
                 className: "main-view",
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 59
+                    lineNumber: 80
                 },
                 __self: this,
-                children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
-                    className: "justify-content-md-center",
-                    __source: {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 62
-                    },
-                    __self: this,
-                    children: /*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
-                        md: 8,
+                children: [
+                    selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
+                        className: "justify-content-md-center",
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 63
+                            lineNumber: 83
                         },
                         __self: this,
-                        children: /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
-                            movie: selectedMovie,
-                            onBackClick: (newSelectedMovie)=>{
-                                this.setSelectedMovie(newSelectedMovie);
-                            },
+                        children: /*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                            md: 8,
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 64
-                            },
-                            __self: this
-                        })
-                    })
-                }) : /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
-                    className: "justify-content-md-center",
-                    __source: {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 69
-                    },
-                    __self: this,
-                    children: movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
-                            md: 3,
-                            __source: {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 71
+                                lineNumber: 84
                             },
                             __self: this,
-                            children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
-                                movie: movie,
-                                onMovieClick: (newSelectedMovie)=>{
+                            children: /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
+                                movie: selectedMovie,
+                                onBackClick: (newSelectedMovie)=>{
                                     this.setSelectedMovie(newSelectedMovie);
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 72
+                                    lineNumber: 85
                                 },
                                 __self: this
-                            }, movie._id)
+                            })
                         })
-                    )
-                })
+                    }) : /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
+                        className: "justify-content-md-center",
+                        __source: {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 90
+                        },
+                        __self: this,
+                        children: movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                md: 3,
+                                __source: {
+                                    fileName: "src/components/main-view/main-view.jsx",
+                                    lineNumber: 92
+                                },
+                                __self: this,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
+                                    movie: movie,
+                                    onMovieClick: (newSelectedMovie)=>{
+                                        this.setSelectedMovie(newSelectedMovie);
+                                    },
+                                    __source: {
+                                        fileName: "src/components/main-view/main-view.jsx",
+                                        lineNumber: 93
+                                    },
+                                    __self: this
+                                }, movie._id)
+                            })
+                        )
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx("button", {
+                        onClick: ()=>{
+                            this.onLoggedOut();
+                        },
+                        __source: {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 99
+                        },
+                        __self: this,
+                        children: "Logout"
+                    })
+                ]
             })
         }));
     }
