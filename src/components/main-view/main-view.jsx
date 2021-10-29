@@ -19,8 +19,12 @@ export default class MainView extends React.Component {
       };
     }
 
-    componentDidMount(){
-      axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies')
+    fetchMovies = (user) => {
+      axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        }
+      })
       .then(response => {
         this.setState({
           movies: response.data
@@ -29,20 +33,20 @@ export default class MainView extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    }
-    
-    setSelectedMovie(movie) {
-      this.setState({
-        selectedMovie: movie
-      });
-    }
-    
-    onLoggedIn(user) {
-      this.setState({
-        user
-      });
-    }
-
+  }
+  
+  setSelectedMovie(movie) {
+    this.setState({
+      selectedMovie: movie
+    });
+  }
+  
+  onLoggedIn(user) {
+    this.setState({
+      user
+    });
+    this.fetchMovies(user);
+  }
     render() {
       const { user, movies, selectedMovie } = this.state;
 
