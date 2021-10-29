@@ -20,12 +20,25 @@ export class MovieView extends React.Component {
         <span className="label">Title: </span>
         <span className="value">{movie.Title}</span>
       </Card.Title>
-      <Card.Body>
+       <Card.Body>
         <span className="label">Description: </span>
         <span className="value">{movie.Description}</span>
-      </Card.Body>
+       </Card.Body>
       </Card>
-      <Button onClick={() => { onBackClick(null); }}>Back</Button>
+     
+      <Link to={`/directors/${movie.Director.Name}`}>
+        <Button variant="link">Director</Button>
+      </Link>
+
+      <Link to={`/genres/${movie.Genre.Name}`}>
+        <Button variant="link">Genre</Button>
+      </Link>
+      
+      <Route path="/movies/:movieId" render={({ match, history }) => {return <Col md={8}>
+            <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
+            </Col>
+          }} />
+      
       </Row>
       );
   }
