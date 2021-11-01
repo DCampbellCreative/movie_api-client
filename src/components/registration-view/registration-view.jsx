@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -15,6 +16,21 @@ export function RegistrationView(props) {
         console.log(username, password, email, birthday);
         props.onRegister(username);
     };
+
+    axios.post('https://dcampbellcreative-movie-api.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday
+    })
+    .then(response => {
+        const data = response.data;
+        console.log(data);
+        window.open('/', '_self'); //opens page in current tab
+    })
+    .catch(e => {
+        console.log('error registering the user')
+    });
 
     return (
         <Form>

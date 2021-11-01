@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -34,10 +35,11 @@ export class MovieView extends React.Component {
         <Button variant="link">Genre</Button>
       </Link>
       
-      <Route path="/movies/:movieId" render={({ match, history }) => {return <Col md={8}>
+      {/* <Route path="/movies/:movieId" render={({ match, history }) => {return <Col md={8}>
             <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
             </Col>
           }} />
+       */}
       
       </Row>
       );
