@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export class MovieCard extends React.Component {
   render() {
     const { movie, onMovieClick } = this.props;
-    
+
     return (
       <Card>
         <Card.Img variant="top" src={movie.ImagePath} />
@@ -17,7 +17,7 @@ export class MovieCard extends React.Component {
           <Card.Text>{movie.Description}</Card.Text>
           <Link to={`/movies/${movie._id}`}>See More</Link>
         </Card.Body>
-        </Card>
+      </Card>
     );
   }
 }
