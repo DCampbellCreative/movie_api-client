@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { ProfileView } from '../profile-view/profile-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { GenreView } from '../genre-view/genre-view';
@@ -81,6 +82,7 @@ export default class MainView extends React.Component {
 
         <Row className="main-view justify-content-md-center">
 
+          {/* Route to home */}
           <Route exact path="/" render={() => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -98,6 +100,7 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
+          {/* Route to movie-view */}
           <Route path="/movies/:movieId" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -108,7 +111,8 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
-          <Route exact path="/genres/:name" render={({ match }) => {
+          {/* Route to genre-view */}
+          <Route exact path="/genres/:name" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
             </Col>
@@ -118,7 +122,7 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
-
+          {/* Route to director-view */}
           <Route exact path="/directors/:name" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
@@ -129,23 +133,18 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
-          {/* <Route path="/users/:username" render={(history) => {
-                if (!user) return <Col>
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                </Col>
-                if (movies.length === 0) return <div className="main-view">;
-                <Col>
-                return <ProfileView history={history} movies={movies}/> 
-                </Col>
-              }} /> */}
-
-
+          {/* Route to profile-view */}
+          <Route path="/users/:username" render={({ match, history }) => {
+            if (!user) return <Col>
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            </Col>
+            if (movies.length === 0) return <div className="main-view" />
+            return <Col>
+              <ProfileView history={history} movies={movies} user={user} />
+            </Col>
+          }} />
 
         </Row>
-
-        {/* adds logout button  
-        <button className="main-view justify-content-md-center" onClick={() => { this.onLoggedOut() }}>Logout</button> */}
-
       </Router>
     );
   }
