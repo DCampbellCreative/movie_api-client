@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 
 export class DirectorView extends React.Component {
   render() {
-    const { Director, movie, onBackClick } = this.props;
+    const { director, onBackClick } = this.props;
 
     return (
       <Row>
@@ -15,23 +15,25 @@ export class DirectorView extends React.Component {
         <Card className="director-view">
           <Card.Title>
             <span className="label">Name: </span>
-            <span className="value">{movie.Director.Name}</span>
+            <span className="value">{director.Name}</span>
           </Card.Title>
           <Card.Body>
             <span className="label">Description: </span>
-            <span className="value">{movie.Director.Bio}</span>
+            <span className="value">{director.Bio}</span>
           </Card.Body>
         </Card>
+
+        <Button variant="link" onClick={() => { onBackClick() }}>Back</Button>
 
       </Row>
     );
   }
 }
 
-// DirectorView.propTypes = {
-//   director: PropTypes.shape({
-//     Name: PropTypes.string.isRequired,
-//     Bio: PropTypes.string.isRequired,
-//   }).isRequired,
-//   onBackClick: PropTypes.func.isRequired
-// };
+DirectorView.propTypes = {
+  director: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Bio: PropTypes.string.isRequired,
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired
+};
