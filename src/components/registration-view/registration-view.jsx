@@ -53,7 +53,7 @@ export function RegistrationView(props) {
         <Form.Control type="text" value={birthday} onChange={e => setBirthday(e.target.value)} />
       </Form.Group>
 
-      <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+      <Button variant="primary" type="submit" onClick={handleSubmit}>Create Account</Button>
     </Form>
   );
 }

@@ -6,35 +6,32 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 
 export class DirectorView extends React.Component {
- 
   render() {
-    const { movie, onBackClick } = this.props;
-    
-    return (   
+    const { Director, movie, onBackClick } = this.props;
+
+    return (
       <Row>
-        
-          
-        
-    <Card className="director-view">
-    <Card.Title>
-        <span className="label">Name: </span>
-        <span className="value">{movie.director.Name}</span>
-      </Card.Title>
-       <Card.Body>
-        <span className="label">Description: </span>
-        <span className="value">{movie.director.Bio}</span>
-       </Card.Body>
-      </Card>
-      
+
+        <Card className="director-view">
+          <Card.Title>
+            <span className="label">Name: </span>
+            <span className="value">{movie.Director.Name}</span>
+          </Card.Title>
+          <Card.Body>
+            <span className="label">Description: </span>
+            <span className="value">{movie.Director.Bio}</span>
+          </Card.Body>
+        </Card>
+
       </Row>
-      );
+    );
   }
 }
 
-DirectorView.propTypes = {
-  director: PropTypes.shape({
-   Name: PropTypes.string.isRequired,
-    Bio: PropTypes.string.isRequired,
-  }).isRequired,
-  onBackClick: PropTypes.func.isRequired
-};
+// DirectorView.propTypes = {
+//   director: PropTypes.shape({
+//     Name: PropTypes.string.isRequired,
+//     Bio: PropTypes.string.isRequired,
+//   }).isRequired,
+//   onBackClick: PropTypes.func.isRequired
+// };

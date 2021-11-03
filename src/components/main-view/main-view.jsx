@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { GenreView } from '../genre-view/genre-view';
@@ -81,7 +83,7 @@ export default class MainView extends React.Component {
 
           <Route exact path="/" render={() => {
             if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return movies.map(m => (<Col md={3} key={m._id}>
@@ -98,7 +100,7 @@ export default class MainView extends React.Component {
 
           <Route path="/movies/:movieId" render={({ match, history }) => {
             if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
@@ -128,8 +130,7 @@ export default class MainView extends React.Component {
           }} />
 
           {/* <Route path="/users/:username" render={(history) => {
-                if (!user) return 
-                <Col>
+                if (!user) return <Col>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
                 </Col>
                 if (movies.length === 0) return <div className="main-view">;
@@ -142,8 +143,8 @@ export default class MainView extends React.Component {
 
         </Row>
 
-        {/* adds logout button   */}
-        <button className="main-view justify-content-md-center" onClick={() => { this.onLoggedOut() }}>Logout</button>
+        {/* adds logout button  
+        <button className="main-view justify-content-md-center" onClick={() => { this.onLoggedOut() }}>Logout</button> */}
 
       </Router>
     );

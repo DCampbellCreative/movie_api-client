@@ -24,7 +24,7 @@ export class ProfileView extends React.Component {
 
 	getUser(token) {
 		const username = localStorage.getItem('user');
-		axios.get(`YOUR GET USER ROUTE HERE`, {
+		axios.get('https://dcampbellcreative-movie-api.herokuapp.com/user', {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then(response => {
