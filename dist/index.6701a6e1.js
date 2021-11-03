@@ -23083,7 +23083,7 @@ class MainView extends _reactDefault.default.Component {
                     /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                         exact: true,
                         path: "/directors/:name",
-                        render: ({ match  })=>{
+                        render: ({ match , history  })=>{
                             if (!user) return(/*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
                                 children: [
                                     /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
