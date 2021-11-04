@@ -57,6 +57,11 @@ export class ProfileView extends React.Component {
 				<Card>
 					<Card body> Username: {user.Username}</Card>
 					<Card body> Email: {user.Email}</Card>
+					<ul>
+						{favoriteMovies.map((movies) => (
+							<li key={movie._id}>{movie.title}</li>
+						))}
+					</ul>
 				</Card>
 
 			</div>

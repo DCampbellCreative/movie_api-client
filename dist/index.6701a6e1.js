@@ -29756,6 +29756,22 @@ class ProfileView extends _reactDefault.default.Component {
                             " Email: ",
                             user.Email
                         ]
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx("ul", {
+                        __source: {
+                            fileName: "src/components/profile-view/profile-view.jsx",
+                            lineNumber: 60
+                        },
+                        __self: this,
+                        children: favoriteMovies.map((movies)=>/*#__PURE__*/ _jsxRuntime.jsx("li", {
+                                __source: {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 62
+                                },
+                                __self: this,
+                                children: movie.title
+                            }, movie._id)
+                        )
                     })
                 ]
             })
