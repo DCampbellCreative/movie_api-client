@@ -3,15 +3,12 @@ import { Container, Col, Form, Row, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 export class ProfileView extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			username: null,
-			email: null,
-			birthday: null,
-			favoriteMovies: [],
-			movies: []
-		}
+	state = {
+		username: null,
+		email: null,
+		birthday: null,
+		favoriteMovies: [],
+		movies: []
 	}
 
 	componentDidMount() {
@@ -27,6 +24,7 @@ export class ProfileView extends React.Component {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then(response => {
+				console.log(response.data);
 				this.setState({
 					movies: response.data,
 				});
@@ -44,6 +42,7 @@ export class ProfileView extends React.Component {
 			.then(response => {
 				const allUsers = response.data;
 				const user = allUsers.filter((res) => res.Username === username)[0];
+				console.log("user", user);
 				this.setState({
 					username: user.Username,
 					email: user.Email,
@@ -56,11 +55,22 @@ export class ProfileView extends React.Component {
 			});
 	}
 
-
-
-	removeFavoriteMovie(movie) {
-		// Code for deleting fav movie will go here
-		// This code will be super duper close to the same code for fav'ing a movie
+	removeFavoriteMovie(movieId) {
+		const token = localStorage.getItem('token');
+		console.log(token);
+		const username = this.state.username;
+		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {
+			headers: { Authorization: `Bearer ${token}` },
+		})
+			.then(response => {
+				console.log(response.data);
+				// this.setState({
+				// 	favoriteMovies: response.data.FavoriteMovies,
+				// });
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	}
 	handleUpdate() {
 		// Code for updating user info
@@ -69,6 +79,7 @@ export class ProfileView extends React.Component {
 	render() {
 		const { user } = this.props;
 		const { favoriteMovies } = this.state;
+		console.log(favoriteMovies);
 		return (
 			<div>
 				<Card>
@@ -78,7 +89,10 @@ export class ProfileView extends React.Component {
 						{favoriteMovies.map((movieId) => {
 							const movie = this.state.movies.filter((mov) => mov._id === movieId)[0] || {};
 							console.log(movie)
-							return <li key={movieId}>{movie.Title} - {movie.Description}</li>
+							return <li key={movieId}>{movie.Title} - {movie.Description}
+								<Button variant="link" onClick={() => this.removeFavoriteMovie(movie._id)}>Remove From Favorites</Button>
+							</li>
+
 						})}
 					</ul>
 				</Card>

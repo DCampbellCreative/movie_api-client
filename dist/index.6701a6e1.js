@@ -29677,16 +29677,13 @@ var _reactBootstrap = require("react-bootstrap");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 class ProfileView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        this.state = {
-            username: null,
-            email: null,
-            birthday: null,
-            favoriteMovies: [],
-            movies: []
-        };
-    }
+    state = {
+        username: null,
+        email: null,
+        birthday: null,
+        favoriteMovies: [],
+        movies: []
+    };
     componentDidMount() {
         const accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
@@ -29700,6 +29697,7 @@ class ProfileView extends _reactDefault.default.Component {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
+            console.log(response.data);
             this.setState({
                 movies: response.data
             });
@@ -29717,6 +29715,7 @@ class ProfileView extends _reactDefault.default.Component {
             const allUsers = response.data;
             const user = allUsers.filter((res)=>res.Username === username
             )[0];
+            console.log("user", user);
             this.setState({
                 username: user.Username,
                 email: user.Email,
@@ -29727,9 +29726,22 @@ class ProfileView extends _reactDefault.default.Component {
             console.log(error);
         });
     }
-    removeFavoriteMovie(movie) {
-    // Code for deleting fav movie will go here
-    // This code will be super duper close to the same code for fav'ing a movie
+    removeFavoriteMovie(movieId) {
+        const token = localStorage.getItem('token');
+        console.log(token);
+        const username = this.state.username;
+        _axiosDefault.default.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response.data);
+        // this.setState({
+        // 	favoriteMovies: response.data.FavoriteMovies,
+        // });
+        }).catch(function(error) {
+            console.log(error);
+        });
     }
     handleUpdate() {
     // Code for updating user info
@@ -29737,16 +29749,17 @@ class ProfileView extends _reactDefault.default.Component {
     render() {
         const { user  } = this.props;
         const { favoriteMovies  } = this.state;
+        console.log(favoriteMovies);
         return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             __source: {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 73
+                lineNumber: 84
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 74
+                    lineNumber: 85
                 },
                 __self: this,
                 children: [
@@ -29754,7 +29767,7 @@ class ProfileView extends _reactDefault.default.Component {
                         body: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 75
+                            lineNumber: 86
                         },
                         __self: this,
                         children: [
@@ -29766,7 +29779,7 @@ class ProfileView extends _reactDefault.default.Component {
                         body: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 76
+                            lineNumber: 87
                         },
                         __self: this,
                         children: [
@@ -29777,7 +29790,7 @@ class ProfileView extends _reactDefault.default.Component {
                     /*#__PURE__*/ _jsxRuntime.jsx("ul", {
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 77
+                            lineNumber: 88
                         },
                         __self: this,
                         children: favoriteMovies.map((movieId)=>{
@@ -29788,13 +29801,24 @@ class ProfileView extends _reactDefault.default.Component {
                             return(/*#__PURE__*/ _jsxRuntime.jsxs("li", {
                                 __source: {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 81
+                                    lineNumber: 92
                                 },
                                 __self: this,
                                 children: [
                                     movie.Title,
                                     " - ",
-                                    movie.Description
+                                    movie.Description,
+                                    /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                        variant: "link",
+                                        onClick: ()=>this.removeFavoriteMovie(movie._id)
+                                        ,
+                                        __source: {
+                                            fileName: "src/components/profile-view/profile-view.jsx",
+                                            lineNumber: 93
+                                        },
+                                        __self: this,
+                                        children: "Remove From Favorites"
+                                    })
                                 ]
                             }, movieId));
                         })
