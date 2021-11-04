@@ -29680,17 +29680,32 @@ class ProfileView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
-            name: null,
             username: null,
-            password: null,
             email: null,
             birthday: null,
-            FavoriteMovies: []
+            favoriteMovies: [],
+            movies: []
         };
     }
     componentDidMount() {
         const accessToken = localStorage.getItem('token');
-        if (accessToken !== null) this.getUser(accessToken);
+        if (accessToken !== null) {
+            this.getUser(accessToken);
+            this.getMovies(accessToken);
+        }
+    }
+    getMovies(token) {
+        _axiosDefault.default.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            this.setState({
+                movies: response.data
+            });
+        }).catch(function(error) {
+            console.log(error);
+        });
     }
     getUser(token) {
         const username = localStorage.getItem('user');
@@ -29699,13 +29714,14 @@ class ProfileView extends _reactDefault.default.Component {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
+            const allUsers = response.data;
+            const user = allUsers.filter((res)=>res.Username === username
+            )[0];
             this.setState({
-                name: response.data.name,
-                username: response.data.username,
-                password: response.data.password,
-                email: response.data.email,
-                birthday: response.data.birthday,
-                FavoriteMovies: response.data.FavoriteMovies
+                username: user.Username,
+                email: user.Email,
+                birthday: user.Birthday,
+                favoriteMovies: user.FavoriteMovies
             });
         }).catch(function(error) {
             console.log(error);
@@ -29719,17 +29735,18 @@ class ProfileView extends _reactDefault.default.Component {
     // Code for updating user info
     }
     render() {
-        const { movie , user  } = this.props;
+        const { user  } = this.props;
+        const { favoriteMovies  } = this.state;
         return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             __source: {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 56
+                lineNumber: 73
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 57
+                    lineNumber: 74
                 },
                 __self: this,
                 children: [
@@ -29737,7 +29754,7 @@ class ProfileView extends _reactDefault.default.Component {
                         body: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 58
+                            lineNumber: 75
                         },
                         __self: this,
                         children: [
@@ -29749,7 +29766,7 @@ class ProfileView extends _reactDefault.default.Component {
                         body: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 59
+                            lineNumber: 76
                         },
                         __self: this,
                         children: [
@@ -29760,18 +29777,27 @@ class ProfileView extends _reactDefault.default.Component {
                     /*#__PURE__*/ _jsxRuntime.jsx("ul", {
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 60
+                            lineNumber: 77
                         },
                         __self: this,
-                        children: favoriteMovies.map((movies)=>/*#__PURE__*/ _jsxRuntime.jsx("li", {
+                        children: favoriteMovies.map((movieId)=>{
+                            const movie = this.state.movies.filter((mov)=>mov._id === movieId
+                            )[0] || {
+                            };
+                            console.log(movie);
+                            return(/*#__PURE__*/ _jsxRuntime.jsxs("li", {
                                 __source: {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 62
+                                    lineNumber: 81
                                 },
                                 __self: this,
-                                children: movie.title
-                            }, movie._id)
-                        )
+                                children: [
+                                    movie.Title,
+                                    " - ",
+                                    movie.Description
+                                ]
+                            }, movieId));
+                        })
                     })
                 ]
             })

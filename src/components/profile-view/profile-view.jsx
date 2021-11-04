@@ -6,12 +6,11 @@ export class ProfileView extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			name: null,
 			username: null,
-			password: null,
 			email: null,
 			birthday: null,
-			FavoriteMovies: [],
+			favoriteMovies: [],
+			movies: []
 		}
 	}
 
@@ -19,7 +18,22 @@ export class ProfileView extends React.Component {
 		const accessToken = localStorage.getItem('token');
 		if (accessToken !== null) {
 			this.getUser(accessToken);
+			this.getMovies(accessToken);
 		}
+	}
+
+	getMovies(token) {
+		axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
+			headers: { Authorization: `Bearer ${token}` },
+		})
+			.then(response => {
+				this.setState({
+					movies: response.data,
+				});
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	}
 
 	getUser(token) {
@@ -28,19 +42,21 @@ export class ProfileView extends React.Component {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then(response => {
+				const allUsers = response.data;
+				const user = allUsers.filter((res) => res.Username === username)[0];
 				this.setState({
-					name: response.data.name,
-					username: response.data.username,
-					password: response.data.password,
-					email: response.data.email,
-					birthday: response.data.birthday,
-					FavoriteMovies: response.data.FavoriteMovies
+					username: user.Username,
+					email: user.Email,
+					birthday: user.Birthday,
+					favoriteMovies: user.FavoriteMovies
 				});
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
 	}
+
+
 
 	removeFavoriteMovie(movie) {
 		// Code for deleting fav movie will go here
@@ -51,16 +67,19 @@ export class ProfileView extends React.Component {
 	}
 
 	render() {
-		const { movie, user } = this.props;
+		const { user } = this.props;
+		const { favoriteMovies } = this.state;
 		return (
 			<div>
 				<Card>
 					<Card body> Username: {user.Username}</Card>
 					<Card body> Email: {user.Email}</Card>
 					<ul>
-						{favoriteMovies.map((movies) => (
-							<li key={movie._id}>{movie.title}</li>
-						))}
+						{favoriteMovies.map((movieId) => {
+							const movie = this.state.movies.filter((mov) => mov._id === movieId)[0] || {};
+							console.log(movie)
+							return <li key={movieId}>{movie.Title} - {movie.Description}</li>
+						})}
 					</ul>
 				</Card>
 
