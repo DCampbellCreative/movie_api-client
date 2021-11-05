@@ -59,14 +59,14 @@ export class ProfileView extends React.Component {
 		const token = localStorage.getItem('token');
 		console.log(token);
 		const username = this.state.username;
-		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {
+		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {}, {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then(response => {
 				console.log(response.data);
-				// this.setState({
-				// 	favoriteMovies: response.data.FavoriteMovies,
-				// });
+				this.setState({
+					favoriteMovies: response.data.FavoriteMovies,
+				});
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -78,13 +78,15 @@ export class ProfileView extends React.Component {
 
 	render() {
 		const { user } = this.props;
-		const { favoriteMovies } = this.state;
-		console.log(favoriteMovies);
+		const { username, email, favoriteMovies } = this.state;
+
+
+		console.log(user.username);
 		return (
 			<div>
 				<Card>
-					<Card body> Username: {user.Username}</Card>
-					<Card body> Email: {user.Email}</Card>
+					<Card body> Username: {username}</Card>
+					<Card body> Email: {email}</Card>
 					<ul>
 						{favoriteMovies.map((movieId) => {
 							const movie = this.state.movies.filter((mov) => mov._id === movieId)[0] || {};

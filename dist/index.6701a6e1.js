@@ -29731,14 +29731,15 @@ class ProfileView extends _reactDefault.default.Component {
         console.log(token);
         const username = this.state.username;
         _axiosDefault.default.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {
+        }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
             console.log(response.data);
-        // this.setState({
-        // 	favoriteMovies: response.data.FavoriteMovies,
-        // });
+            this.setState({
+                favoriteMovies: response.data.FavoriteMovies
+            });
         }).catch(function(error) {
             console.log(error);
         });
@@ -29748,18 +29749,18 @@ class ProfileView extends _reactDefault.default.Component {
     }
     render() {
         const { user  } = this.props;
-        const { favoriteMovies  } = this.state;
-        console.log(favoriteMovies);
+        const { username , email , favoriteMovies  } = this.state;
+        console.log(user.username);
         return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             __source: {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 84
+                lineNumber: 86
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 85
+                    lineNumber: 87
                 },
                 __self: this,
                 children: [
@@ -29767,30 +29768,30 @@ class ProfileView extends _reactDefault.default.Component {
                         body: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 86
+                            lineNumber: 88
                         },
                         __self: this,
                         children: [
                             " Username: ",
-                            user.Username
+                            username
                         ]
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                         body: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 87
+                            lineNumber: 89
                         },
                         __self: this,
                         children: [
                             " Email: ",
-                            user.Email
+                            email
                         ]
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx("ul", {
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 88
+                            lineNumber: 90
                         },
                         __self: this,
                         children: favoriteMovies.map((movieId)=>{
@@ -29801,7 +29802,7 @@ class ProfileView extends _reactDefault.default.Component {
                             return(/*#__PURE__*/ _jsxRuntime.jsxs("li", {
                                 __source: {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 92
+                                    lineNumber: 94
                                 },
                                 __self: this,
                                 children: [
@@ -29814,7 +29815,7 @@ class ProfileView extends _reactDefault.default.Component {
                                         ,
                                         __source: {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 93
+                                            lineNumber: 95
                                         },
                                         __self: this,
                                         children: "Remove From Favorites"
