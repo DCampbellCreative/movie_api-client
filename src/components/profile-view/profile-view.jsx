@@ -64,6 +64,7 @@ export class ProfileView extends React.Component {
 		})
 			.then(response => {
 				console.log(response.data);
+				alert(`Removed from Favorites`);
 				this.setState({
 					favoriteMovies: response.data.FavoriteMovies,
 				});
@@ -85,6 +86,7 @@ export class ProfileView extends React.Component {
 		return (
 			<div>
 				<Card>
+					<Card title className="justify-content-center"> Profile </Card>
 					<Card body> Username: {username}</Card>
 					<Card body> Email: {email}</Card>
 					<ul>

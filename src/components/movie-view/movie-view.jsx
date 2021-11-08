@@ -17,51 +17,18 @@ export class MovieView extends React.Component {
     movies: []
   }
 
-  getMovies(token) {
-    axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          movies: response.data,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
-  getUser(token) {
-    const username = localStorage.getItem('user');
-    axios.get('https://dcampbellcreative-movie-api.herokuapp.com/users', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then(response => {
-        const allUsers = response.data;
-        const user = allUsers.filter((res) => res.Username === username)[0];
-        console.log("user", user);
-        this.setState({
-          username: user.Username,
-          email: user.Email,
-          birthday: user.Birthday,
-          favoriteMovies: user.FavoriteMovies
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
   addFavoriteMovie(movieId) {
+    const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
     console.log(token);
-    const username = this.state.username;
     axios.post(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {}, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(response => {
         console.log(response.data);
+        alert(`Added to Favorites`);
         this.setState({
           favoriteMovies: response.data.FavoriteMovies,
         });
@@ -72,7 +39,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, onBackClick } = this.props;
+    const { movie } = this.props;
     const { username, email, favoriteMovies } = this.state;
 
     return (
