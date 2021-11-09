@@ -73,20 +73,35 @@ export class ProfileView extends React.Component {
 				console.log(error);
 			});
 	}
-	handleUpdate() {
-		// Code for updating user info
+
+	// updates user name
+	updateUsername(Username) {
+		const username = localStorage.getItem('user');
+		const token = localStorage.getItem('token');
+		console.log(token);
+		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`, {}, {
+			headers: { Authorization: `Bearer ${token}` },
+		})
+			.then(response => {
+				console.log(response.data);
+				alert(`Username Updated!`);
+				this.setState({
+					updateUsername: response.data.updateUsername,
+				});
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	}
 
 	render() {
 		const { user } = this.props;
 		const { username, email, favoriteMovies } = this.state;
-
-
 		console.log(user.username);
 		return (
 			<div>
+				<h1> Profile </h1>
 				<Card>
-					<Card title className="justify-content-center"> Profile </Card>
 					<Card body> Username: {username}</Card>
 					<Card body> Email: {email}</Card>
 					<ul>
@@ -100,6 +115,23 @@ export class ProfileView extends React.Component {
 						})}
 					</ul>
 				</Card>
+
+				<Form>
+					<h2>Update User Info</h2>
+
+					<label>Username:</label>
+					<input type='text' name='Username' defaultValue={username} onChange={e => this.handleUpdate(e)} />
+					<Button variant="primary" onClick={() => this.updateUsername(user.Username)}>Update</Button><br />
+
+					<label>Email:</label>
+					<input type='text' name='Email' defaultValue={email} onChange={e => this.handleUpdate(e)} /><br />
+
+					<label>Password:</label>
+					<input type='text' name='Password' defaultValue={`********`} onChange={e => this.handleUpdate(e)} /><br />
+
+					<label>Birthday:</label>
+					<input type='date' name='Birthday' defaultValue={user.Birthday} onChange={e => this.handleUpdate(e)} /><br />
+				</Form>
 
 			</div>
 		)
