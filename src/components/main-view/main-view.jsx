@@ -1,10 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import { Navbar, Nav, Col, Row, Button } from 'react-bootstrap';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -15,7 +12,6 @@ import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
 
 export default class MainView extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -79,9 +75,29 @@ export default class MainView extends React.Component {
 
     return (
       <Router>
+        {user && (
+          <header className='mb-4' style={{ marginTop: 150 }}>
+            <Navbar expand='lg' fixed='top' className='nav-bar' bg='primary' variant='dark'>
+              <Navbar.Toggle aria-controls='basic-navbar-nav' />
+              <Navbar.Collapse id='basic-navbar-nav'>
+                <Nav className='mr-auto'>
+                  <Nav.Link as={Link} to={`/`}>
+                    Home
+                  </Nav.Link>
+                  <Nav.Link as={Link} to={`/users/${user}`}>
+                    My Account
+                  </Nav.Link>
+                </Nav>
+
+                <Link to={`/`}>
+                  <Button variant='dark' className='logout-button' onClick={() => this.onLoggedOut()}>Logout</Button>
+                </Link>
+              </Navbar.Collapse>
+            </Navbar>
+          </header>
+        )}
 
         <Row className="main-view justify-content-md-center">
-
           {/* Route to home */}
           <Route exact path="/" render={() => {
             if (!user) return <Col>

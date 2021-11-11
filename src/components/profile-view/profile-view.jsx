@@ -9,7 +9,12 @@ export class ProfileView extends React.Component {
 		password: null,
 		birthday: null,
 		favoriteMovies: [],
-		movies: []
+		movies: [],
+
+		newUsername: null,
+		newEmail: null,
+		newPassword: null,
+		newBirthday: null
 	}
 
 	componentDidMount() {
@@ -43,7 +48,7 @@ export class ProfileView extends React.Component {
 			.then(response => {
 				const allUsers = response.data;
 				const user = allUsers.filter((res) => res.Username === username)[0];
-				console.log("user", user);
+				console.log(user);
 				this.setState({
 					username: user.Username,
 					email: user.Email,
@@ -76,16 +81,21 @@ export class ProfileView extends React.Component {
 	}
 
 	// updates user info
-	handleUpdate(e) {
+	handleUpdate() {
 		const username = localStorage.getItem('user');
 		const token = localStorage.getItem('token');
 		console.log(token);
 		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`,
 			{
-				Username: this.state.Username,
-				Password: this.state.Password,
-				Email: this.state.Email,
-				Birthday: this.state.Birthday
+				Username: this.state.newUsername
+					? this.state.newUsername
+					: this.state.Username,
+				Email: this.state.newEmail
+					? this.state.newEmail
+					: this.state.Email,
+				Birthday: this.state.newBirthday
+					? this.state.newBirthday
+					: this.state.Birthday
 			},
 			{
 				headers: { Authorization: `Bearer ${token}` },
@@ -99,20 +109,51 @@ export class ProfileView extends React.Component {
 					Email: response.data.Email,
 					Birthday: response.date.Birthday
 				});
+				localStorage.setItem('user', response.data.Username);
+				window.open(`/users/${response.data.Username}`, '_self');
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
 	}
 
+	setUsername(input) {
+		this.setState({ newUsername: input });
+	}
+
+	setEmail(input) {
+		this.setState({ newEmail: input });
+	}
+
+	setBirthday(input) {
+		this.setState({ newBirthday: input });
+	}
+
+	// deletes user account
+	deleteUser() {
+		const token = localStorage.getItem('token');
+		const username = localStorage.getItem('user');
+		axios.delete(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`, {
+			headers: { Authorization: `Bearer ${token}` }
+		})
+			.then((response) => {
+				console.log(response);
+				alert(username + ' your account has been deleted.');
+				localStorage.removeItem('user');
+				localStorage.removeItem('token');
+				window.open('/', '_self');
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+	}
 
 	render() {
 		const { user } = this.props;
 		const { username, email, favoriteMovies } = this.state;
-		console.log(user.username);
 		return (
 			<div>
-				<h1> Profile </h1>
+				<h1>My Account</h1>
 				<Card>
 					<Card body> Username: {username}</Card>
 					<Card body> Email: {email}</Card>
@@ -132,21 +173,23 @@ export class ProfileView extends React.Component {
 					<h2>Update User Info</h2>
 
 					<label>Username:</label>
-					<input type='text' name='Username' defaultValue={username} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Username)}>Update</Button><br />
+					<input type='text' name='Username' defaultValue={username} onChange={(e) => this.setUsername(e.target.value)} />
+					<Button variant="primary" onClick={() => this.handleUpdate()}>Update</Button><br />
 
 					<label>Email:</label>
-					<input type='text' name='Email' defaultValue={email} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Email)}>Update</Button><br />
+					<input type='text' name='Email' defaultValue={email} onChange={(e) => this.setEmail(e.target.value)} />
+					<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
 
-					<label>Password:</label>
+					{/* <label>Password:</label>
 					<input type='text' name='Password' defaultValue={`********`} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Password)}>Update</Button><br />
+					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Password)}>Update</Button><br /> */}
 
 					<label>Birthday:</label>
-					<input type='date' name='Birthday' defaultValue={user.Birthday} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Birthday)}>Update</Button><br />
+					<input type='date' name='Birthday' defaultValue={user.Birthday} onChange={(e) => this.setEmail(e.target.value)} />
+					<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
 				</Form>
+
+				<Button variant="danger" onClick={() => this.deleteUser()}>Delete Account</Button>
 
 			</div>
 		)
