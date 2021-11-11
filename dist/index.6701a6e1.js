@@ -29627,7 +29627,7 @@ class ProfileView extends _reactDefault.default.Component {
         _axiosDefault.default.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`, {
             Username: this.state.newUsername ? this.state.newUsername : this.state.Username,
             Email: this.state.newEmail ? this.state.newEmail : this.state.Email,
-            Birthday: this.state.newBirthday ? this.state.newBirthday : this.state.Birthday
+            Birthday: this.state.newBirthday ? this.state.newBirthday : this.state.birthday
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -29636,10 +29636,10 @@ class ProfileView extends _reactDefault.default.Component {
             console.log(response.data);
             alert(`Info Updated!`);
             this.setState({
-                Username: response.data.Username,
-                Password: response.data.Password,
-                Email: response.data.Email,
-                Birthday: response.date.Birthday
+                username: response.data.Username,
+                password: response.data.Password,
+                email: response.data.Email,
+                birthday: response.data.Birthday
             });
             localStorage.setItem('user', response.data.Username);
             window.open(`/users/${response.data.Username}`, '_self');
