@@ -6,6 +6,7 @@ export class ProfileView extends React.Component {
 	state = {
 		username: null,
 		email: null,
+		password: null,
 		birthday: null,
 		favoriteMovies: [],
 		movies: []
@@ -74,25 +75,36 @@ export class ProfileView extends React.Component {
 			});
 	}
 
-	// updates user name
-	updateUsername(Username) {
+	// updates user info
+	handleUpdate(e) {
 		const username = localStorage.getItem('user');
 		const token = localStorage.getItem('token');
 		console.log(token);
-		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`, {}, {
-			headers: { Authorization: `Bearer ${token}` },
-		})
+		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`,
+			{
+				Username: this.state.Username,
+				Password: this.state.Password,
+				Email: this.state.Email,
+				Birthday: this.state.Birthday
+			},
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			})
 			.then(response => {
 				console.log(response.data);
-				alert(`Username Updated!`);
+				alert(`Info Updated!`);
 				this.setState({
-					updateUsername: response.data.updateUsername,
+					Username: response.data.Username,
+					Password: response.data.Password,
+					Email: response.data.Email,
+					Birthday: response.date.Birthday
 				});
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
 	}
+
 
 	render() {
 		const { user } = this.props;
@@ -120,17 +132,20 @@ export class ProfileView extends React.Component {
 					<h2>Update User Info</h2>
 
 					<label>Username:</label>
-					<input type='text' name='Username' defaultValue={username} onChange={e => this.handleUpdate(e)} />
-					<Button variant="primary" onClick={() => this.updateUsername(user.Username)}>Update</Button><br />
+					<input type='text' name='Username' defaultValue={username} />
+					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Username)}>Update</Button><br />
 
 					<label>Email:</label>
-					<input type='text' name='Email' defaultValue={email} onChange={e => this.handleUpdate(e)} /><br />
+					<input type='text' name='Email' defaultValue={email} />
+					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Email)}>Update</Button><br />
 
 					<label>Password:</label>
-					<input type='text' name='Password' defaultValue={`********`} onChange={e => this.handleUpdate(e)} /><br />
+					<input type='text' name='Password' defaultValue={`********`} />
+					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Password)}>Update</Button><br />
 
 					<label>Birthday:</label>
-					<input type='date' name='Birthday' defaultValue={user.Birthday} onChange={e => this.handleUpdate(e)} /><br />
+					<input type='date' name='Birthday' defaultValue={user.Birthday} />
+					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Birthday)}>Update</Button><br />
 				</Form>
 
 			</div>
