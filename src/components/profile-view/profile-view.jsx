@@ -95,7 +95,7 @@ export class ProfileView extends React.Component {
 					: this.state.Email,
 				Birthday: this.state.newBirthday
 					? this.state.newBirthday
-					: this.state.Birthday
+					: this.state.birthday
 			},
 			{
 				headers: { Authorization: `Bearer ${token}` },
@@ -104,10 +104,10 @@ export class ProfileView extends React.Component {
 				console.log(response.data);
 				alert(`Info Updated!`);
 				this.setState({
-					Username: response.data.Username,
-					Password: response.data.Password,
-					Email: response.data.Email,
-					Birthday: response.date.Birthday
+					username: response.data.Username,
+					password: response.data.Password,
+					email: response.data.Email,
+					birthday: response.data.Birthday
 				});
 				localStorage.setItem('user', response.data.Username);
 				window.open(`/users/${response.data.Username}`, '_self');
