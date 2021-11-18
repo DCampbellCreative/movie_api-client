@@ -45,7 +45,7 @@ export class MovieView extends React.Component {
     return (
       <Row>
 
-        <Image src={movie.ImagePath} thumbnail />
+        <Image src={movie.ImagePath} crossOrigin="anonymous" thumbnail />
 
         <Card className="movie-view">
           <Card.Title>
