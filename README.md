@@ -1,5 +1,11 @@
-My Movie API Client
+# FlixFix React
 
-A single page app built in React to interact with a movie database created in MongoDB.
+<p>Client side application created using React, Redux, and Parcel. Interacts with server side REST API and MongoDB database.
 
-Users can register, login, deregister, view data about movies, and add and delete movies from thier favorites.
+Users can register new accounts, login using existing accounts, and update and delete their current account.
+
+Renders a list of movies stored in a MongoDB database where users can view detailed information about each title and add and remove titles from their favorites.</p>
+
+**Author: Douglass Campbell**
+
+Check out more of my code: [github.com/DCampbellCreative](https://github.com/DCampbellCreative)
