@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 
@@ -16,8 +18,6 @@ export class MovieView extends React.Component {
     favoriteMovies: [],
     movies: []
   }
-
-
 
   addFavoriteMovie(movieId) {
     const username = localStorage.getItem('user');
@@ -43,36 +43,32 @@ export class MovieView extends React.Component {
     const { username, email, favoriteMovies } = this.state;
 
     return (
-      <Row>
+      <Card className='movie-view-card'>
 
-        <Image src={movie.ImagePath} crossOrigin="anonymous" thumbnail />
+        <img className='movie-image' crossOrigin="anonymous" src={movie.ImagePath} />
 
-        <Card className="movie-view">
-          <Card.Title>
-            <span className="label">Title: </span>
-            <span className="value">{movie.Title}</span>
-          </Card.Title>
-          <Card.Body>
-            <span className="label">Description: </span>
-            <span className="value">{movie.Description}</span>
-          </Card.Body>
-        </Card>
+        <div className='card-column-right'>
+          <span className="movie-title">{movie.Title}</span>
+          <div className="movie-description">
+            Description: {movie.Description}
+          </div>
 
-        <Link to={`/directors/${movie.Director.Name}`}>
-          <Button variant="link">Director</Button>
-        </Link>
+          <div >
+            <Link to={`/directors/${movie.Director.Name}`}>
+              <Button className='card-action' variant="link">Director</Button>
+            </Link>
 
-        <Link to={`/genres/${movie.Genre.Name}`}>
-          <Button variant="link">Genre</Button>
-        </Link>
+            <Link to={`/genres/${movie.Genre.Name}`}>
+              <Button className='card-action' variant="link">Genre</Button>
+            </Link>
+            <Link to={`/`}>
+              <Button className='card-action' variant="link">Go Back</Button>
+            </Link>
+            <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>Add to Favorites</Button>
+          </div>
 
-        <Link to={`/`}>
-          <Button variant="link">Go Back</Button>
-        </Link>
-
-        <Button variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>Add to Favorites</Button>
-
-      </Row>
+        </div>
+      </Card>
     );
   }
 }

@@ -1,5 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400&display=swap");
+
 $color: steelblue;
+
+body {
+  font-family: "Work Sans", sans-serif;
+}
 
 .my-flix {
   color: $color;
 }
+
+// HEADER
+
+.nav-bar {
+  height: 100px;
+  background-color: #34495e !important;
+}
+
+// MOVIE CARD
+
+.card {
+  height: 700px;
+  margin-bottom: 1rem;
+}
+
+.card-img-top {
+  width: 100%;
+}
+
+.card-body {
+  font-weight: 300;
+}
+
+// MOVIE VIEW
+
+.movie-view-card {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.movie-image {
+  width: 30%;
+  border-right: 1px solid lightgrey;
+}
+
+.card-column-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.movie-title {
+  font-size: x-large;
+  font-weight: 600;
+  margin-left: 3%;
+}
+
+.movie-description {
+  font-size: 20px;
+  margin-left: 3%;
+  margin-right: 10%;
+  font-weight: 200;
+}
+
+.card-action {
+  font-size: 20px;
+}
+
+// @import "bootstrap";

@@ -14,6 +14,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { MovieView } from '../movie-view/movie-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
+import { Navigation } from '../navigation/navigation'
 
 class MainView extends React.Component {
   constructor() {
@@ -78,28 +79,10 @@ class MainView extends React.Component {
     return (
       <Router>
         {user && (
-          <header className='mb-4' style={{ marginTop: 150 }}>
-            <Navbar expand='lg' fixed='top' className='nav-bar' bg='primary' variant='dark'>
-              <Navbar.Toggle aria-controls='basic-navbar-nav' />
-              <Navbar.Collapse id='basic-navbar-nav'>
-                <Nav className='mr-auto'>
-                  <Nav.Link as={Link} to={`/`}>
-                    Home
-                  </Nav.Link>
-                  <Nav.Link as={Link} to={`/users/${user}`}>
-                    My Account
-                  </Nav.Link>
-                </Nav>
-
-                <Link to={`/`}>
-                  <Button variant='dark' className='logout-button' onClick={() => this.onLoggedOut()}>Logout</Button>
-                </Link>
-              </Navbar.Collapse>
-            </Navbar>
-          </header>
+          <Navigation onLoggedOut={user => this.onLoggedOut(user)} />
         )}
 
-        <Row className="main-view justify-content-md-center">
+        <Row className="main-view justify-content-md-center" style={{ marginTop: "100px" }}>
           {/* Route to home */}
           <Route exact path="/" render={() => {
             if (!user) return <Col>
@@ -121,7 +104,7 @@ class MainView extends React.Component {
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
-            return <Col md={8}>
+            return <Col md={10}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack} />
             </Col>
           }} />
