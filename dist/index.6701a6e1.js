@@ -990,7 +990,11 @@ _reactDomDefault.default.render(/*#__PURE__*/ _reactDefault.default.createElemen
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
+<<<<<<< HEAD
 },{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-dom":"gkWJK","./index.scss":"jUTZ8","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","./components/main-view/main-view":"2zHas","react-bootstrap/Container":"2PRIq","redux":"4d0QS","react-redux":"2L0if","redux-devtools-extension":"8GWVf","./reducers/reducers":"btgQW"}],"8xIwr":[function(require,module,exports) {
+=======
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-dom":"gkWJK","./index.scss":"jUTZ8","@parcel/transformer-js/src/esmodule-helpers.js":"ccaVe","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"l4fCG","./components/main-view/main-view":"2zHas","react-bootstrap/Container":"2PRIq","redux":"4d0QS","react-redux":"2L0if","redux-devtools-extension":"8GWVf","./reducers/reducers":"btgQW"}],"8xIwr":[function(require,module,exports) {
+>>>>>>> main
 'use strict';
 module.exports = require('./cjs/react-jsx-runtime.development.js');
 
@@ -42352,6 +42356,7 @@ MovieCard.propTypes = {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
+<<<<<<< HEAD
 },{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Card":"MoOk8","react-router-dom":"cpyQW","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J"}],"2Btjf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$d207 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
@@ -42473,6 +42478,9 @@ $RefreshReg$(_c, "Navigation");
   window.$RefreshSig$ = prevRefreshSig;
 }
 },{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-router-dom":"cpyQW","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J"}],"4d0QS":[function(require,module,exports) {
+=======
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Col":"fbam0","react-bootstrap/Container":"2PRIq","react-bootstrap/Card":"MoOk8","react-router-dom":"cpyQW","@parcel/transformer-js/src/esmodule-helpers.js":"ccaVe","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"l4fCG"}],"4d0QS":[function(require,module,exports) {
+>>>>>>> main
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__DO_NOT_USE__ActionTypes", ()=>ActionTypes
@@ -43021,7 +43029,11 @@ function _defineProperty(obj, key, value) {
 }
 exports.default = _defineProperty;
 
+<<<<<<< HEAD
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"8GWVf":[function(require,module,exports) {
+=======
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ccaVe"}],"8GWVf":[function(require,module,exports) {
+>>>>>>> main
 'use strict';
 var compose = require('redux').compose;
 exports.__esModule = true;
