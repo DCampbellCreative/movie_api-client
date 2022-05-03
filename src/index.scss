@@ -6,15 +6,15 @@ body {
   font-family: "Work Sans", sans-serif;
 }
 
-.my-flix {
-  color: $color;
-}
+// .my-flix {
+//   color: $color;
+// }
 
 // HEADER
 
 .nav-bar {
   height: 100px;
-  background-color: #34495e !important;
+  background-color: #5f9ea0 !important;
 }
 
 // MOVIE CARD
@@ -70,4 +70,41 @@ body {
   font-size: 20px;
 }
 
-// @import "bootstrap";
+// DETAILS VIEWS
+
+.details-card {
+  height: auto;
+  margin-top: 50px;
+}
+
+.back-button {
+  text-align: right;
+}
+
+// PROFILE VIEW
+
+.profile-card {
+  display: flex;
+  height: auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.border-bottom {
+  border-bottom: 1px solid grey;
+  padding: 2%;
+}
+
+.update-form-label {
+  display: flex;
+  justify-self: flex-start;
+}
+
+//LOGIN-VIEW & REGISTRATION-VIEW
+
+.error {
+  border: 1px solid red !important;
+}

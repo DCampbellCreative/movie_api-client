@@ -12,7 +12,7 @@ export class DirectorView extends React.Component {
     return (
       <Row>
 
-        <Card className="director-view">
+        <Card className="details-card">
           <Card.Title>
             <span className="label">Name: </span>
             <span className="value">{director.Name}</span>
@@ -21,9 +21,10 @@ export class DirectorView extends React.Component {
             <span className="label">Description: </span>
             <span className="value">{director.Bio}</span>
           </Card.Body>
+          <Button className="back-button" variant="link" onClick={() => { onBackClick() }}>Back</Button>
         </Card>
 
-        <Button variant="link" onClick={() => { onBackClick() }}>Back</Button>
+
 
       </Row>
     );

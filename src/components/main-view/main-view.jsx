@@ -78,9 +78,9 @@ class MainView extends React.Component {
 
     return (
       <Router>
-        {user && (
-          <Navigation onLoggedOut={user => this.onLoggedOut(user)} />
-        )}
+        {/* {user && ( */}
+        <Navigation user={user} onLoggedOut={user => this.onLoggedOut(user)} />
+        {/* )} */}
 
         <Row className="main-view justify-content-md-center" style={{ marginTop: "100px" }}>
           {/* Route to home */}

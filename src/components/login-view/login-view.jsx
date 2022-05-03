@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,25 +21,31 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log('no such user')
+        setErrorMessage('Username or password is incorrect.')
       });
   };
 
   return (
-    <Form>
-      <Form.Group controlId="formUsername">
+    <Form className="w-50 mx-auto m-3">
+      <h2 style={{ textAlign: 'center', textTransform: 'uppercase' }}>Login</h2>
+
+      <Form.Group controlId="formUsername" className="mb-3">
         <Form.Label>Username:</Form.Label>
-        <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+        <Form.Control type="text" className={`${errorMessage ? 'text-danger' : ''}`} onChange={e => setUsername(e.target.value)} onFocus={() => setErrorMessage('')} />
       </Form.Group>
 
-      <Form.Group controlId="formPassword">
+      <Form.Group controlId="formPassword" className="mb-3">
         <Form.Label>Password:</Form.Label>
-        <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
+        <Form.Control type="password" className={`${errorMessage ? 'text-danger' : ''}`} onChange={e => setPassword(e.target.value)} onFocus={() => setErrorMessage('')} />
       </Form.Group>
 
-      <Button variant="primary" type="submit" onClick={handleSubmit}>Log In</Button>
+      {errorMessage && <p className="mb-3 text-center" style={{ color: 'red' }}>{errorMessage}</p>}
 
-      <Link to="/register">Register</Link>
+      <Form.Group className="m-3 text-center">
+        <Button className="mr-3" variant="primary" type="submit" onClick={handleSubmit}>Log In</Button>
+
+        <Link to="/register">Register</Link>
+      </Form.Group>
     </Form>
   );
 }

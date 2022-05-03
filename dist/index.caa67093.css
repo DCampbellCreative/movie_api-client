@@ -2,12 +2,9 @@
 body {
   font-family: "Work Sans", sans-serif;
 }
-.my-flix {
-  color: steelblue;
-}
 .nav-bar {
   height: 100px;
-  background-color: #34495e !important;
+  background-color: #5f9ea0 !important;
 }
 .card {
   height: 700px;
@@ -48,5 +45,31 @@ body {
 }
 .card-action {
   font-size: 20px;
+}
+.details-card {
+  height: auto;
+  margin-top: 50px;
+}
+.back-button {
+  text-align: right;
+}
+.profile-card {
+  display: flex;
+  height: auto;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+.border-bottom {
+  border-bottom: 1px solid grey;
+  padding: 2%;
+}
+.update-form-label {
+  display: flex;
+  justify-self: flex-start;
+}
+.error {
+  border: 1px solid red !important;
 }
 /*# sourceMappingURL=index.caa67093.css.map */

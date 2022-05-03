@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Col, Form, Row, Card, Button } from 'react-bootstrap';
+import { Container, Col, Form, Row, Card, Button, Stack } from 'react-bootstrap';
 import axios from 'axios';
 
 export class ProfileView extends React.Component {
@@ -153,45 +153,60 @@ export class ProfileView extends React.Component {
 		const { username, email, favoriteMovies } = this.state;
 		return (
 			<div>
-				<h1>My Account</h1>
-				<Card>
-					<Card body> Username: {username}</Card>
-					<Card body> Email: {email}</Card>
+				<h2 style={{ textTransform: 'capitalize', textAlign: 'center', margin: '2%' }}>{username}'s Account</h2>
+				<Card className='profile-card'>
+
+					<h4 className='center border-bottom'> <b>Username:</b> {username}</h4>
+					<h4 className='center border-bottom'> <b>Email:</b> {email}</h4>
+					<h4 style={{ padding: '2% ' }}>Your Favorites</h4>
 					<ul>
 						{favoriteMovies.map((movieId) => {
 							const movie = this.state.movies.filter((mov) => mov._id === movieId)[0] || {};
 							console.log(movie)
-							return <li key={movieId}>{movie.Title} - {movie.Description}
+							return <li style={{ padding: '1%' }} key={movieId}>{movie.Title} - {movie.Description}
 								<Button variant="link" onClick={() => this.removeFavoriteMovie(movie._id)}>Remove From Favorites</Button>
 							</li>
 
 						})}
 					</ul>
+
 				</Card>
 
-				<Form>
-					<h2>Update User Info</h2>
 
-					<label>Username:</label>
-					<input type='text' name='Username' defaultValue={username} onChange={(e) => this.setUsername(e.target.value)} />
-					<Button variant="primary" onClick={() => this.handleUpdate()}>Update</Button><br />
+				<h2 style={{ textAlign: 'center' }}>Update User Info</h2>
 
-					<label>Email:</label>
-					<input type='text' name='Email' defaultValue={email} onChange={(e) => this.setEmail(e.target.value)} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
+				<Form className='mx-auto' style={{ width: '65%', textAlign: 'right', }}>
 
+
+					<Form.Group >
+
+						<Form.Label style={{ margin: '2%' }} className='update-form-label'>Username:</Form.Label>
+						<Form.Control style={{ margin: '2%' }} type='text' name='Username' defaultValue={username} onChange={(e) => this.setUsername(e.target.value)} />
+						<Button variant="primary" className='mr-0' onClick={() => this.handleUpdate()}>Update</Button><br />
+
+					</Form.Group>
+
+
+					<Form.Group >
+						<Form.Label style={{ margin: '2% ' }} className='update-form-label'>Email:</Form.Label>
+						<Form.Control style={{ margin: '2% ' }} type='text' name='Email' defaultValue={email} onChange={(e) => this.setEmail(e.target.value)} />
+						<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
+					</Form.Group>
 					{/* <label>Password:</label>
 					<input type='text' name='Password' defaultValue={`********`} />
 					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Password)}>Update</Button><br /> */}
 
-					<label>Birthday:</label>
-					<input type='date' name='Birthday' defaultValue={user.Birthday} onChange={(e) => this.setEmail(e.target.value)} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
+					<Form.Group >
+						<Form.Label style={{ margin: '2% ' }} className='update-form-label'>Birthday:</Form.Label>
+						<Form.Control style={{ margin: '2% ' }} type='date' name='Birthday' defaultValue={user.Birthday} onChange={(e) => this.setEmail(e.target.value)} />
+						<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
+					</Form.Group>
 				</Form>
 
-				<Button variant="danger" onClick={() => this.deleteUser()}>Delete Account</Button>
-
-			</div>
+				<div style={{ textAlign: 'center', margin: '3%' }}>
+					<Button variant="danger" onClick={() => this.deleteUser()}>Delete Account</Button>
+				</div>
+			</div >
 		)
 	}
 }
