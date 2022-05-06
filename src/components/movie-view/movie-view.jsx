@@ -93,9 +93,7 @@ export class MovieView extends React.Component {
 
         <Row>
           <Col md={5} sm={5} lg={5}>
-
             <Card.Img className='movie-image' crossOrigin="anonymous" src={movie.ImagePath} />
-
           </Col>
           <Col className='card-column-right' md={7} sm={7} lg={7}>
 

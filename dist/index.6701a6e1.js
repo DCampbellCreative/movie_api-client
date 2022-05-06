@@ -23301,7 +23301,7 @@ class MovieView extends _reactDefault.default.Component {
                             src: movie.ImagePath,
                             __source: {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 97
+                                lineNumber: 96
                             },
                             __self: this
                         })
@@ -23313,7 +23313,7 @@ class MovieView extends _reactDefault.default.Component {
                         lg: 7,
                         __source: {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 100
+                            lineNumber: 98
                         },
                         __self: this,
                         children: [
@@ -23321,7 +23321,7 @@ class MovieView extends _reactDefault.default.Component {
                                 className: "movie-title",
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 102
+                                    lineNumber: 100
                                 },
                                 __self: this,
                                 children: movie.Title
@@ -23330,7 +23330,7 @@ class MovieView extends _reactDefault.default.Component {
                                 className: "movie-description mr-3",
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 103
+                                    lineNumber: 101
                                 },
                                 __self: this,
                                 children: [
@@ -23341,7 +23341,7 @@ class MovieView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Row, {
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 107
+                                    lineNumber: 105
                                 },
                                 __self: this,
                                 children: [
@@ -23349,7 +23349,7 @@ class MovieView extends _reactDefault.default.Component {
                                         to: `/directors/${movie.Director.Name}`,
                                         __source: {
                                             fileName: "src/components/movie-view/movie-view.jsx",
-                                            lineNumber: 108
+                                            lineNumber: 106
                                         },
                                         __self: this,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -23357,7 +23357,7 @@ class MovieView extends _reactDefault.default.Component {
                                             variant: "link",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 109
+                                                lineNumber: 107
                                             },
                                             __self: this,
                                             children: "Director"
@@ -23367,7 +23367,7 @@ class MovieView extends _reactDefault.default.Component {
                                         to: `/genres/${movie.Genre.Name}`,
                                         __source: {
                                             fileName: "src/components/movie-view/movie-view.jsx",
-                                            lineNumber: 111
+                                            lineNumber: 109
                                         },
                                         __self: this,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -23375,7 +23375,7 @@ class MovieView extends _reactDefault.default.Component {
                                             variant: "link",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 112
+                                                lineNumber: 110
                                             },
                                             __self: this,
                                             children: "Genre"
@@ -23388,7 +23388,7 @@ class MovieView extends _reactDefault.default.Component {
                                         ,
                                         __source: {
                                             fileName: "src/components/movie-view/movie-view.jsx",
-                                            lineNumber: 116
+                                            lineNumber: 114
                                         },
                                         __self: this,
                                         children: "- Remove from Favorites"
@@ -23399,7 +23399,7 @@ class MovieView extends _reactDefault.default.Component {
                                         ,
                                         __source: {
                                             fileName: "src/components/movie-view/movie-view.jsx",
-                                            lineNumber: 117
+                                            lineNumber: 115
                                         },
                                         __self: this,
                                         children: "+ Add to Favorites"
@@ -23409,14 +23409,14 @@ class MovieView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Row, {
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 120
+                                    lineNumber: 118
                                 },
                                 __self: this,
                                 children: /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
                                     to: `/`,
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 120
+                                        lineNumber: 118
                                     },
                                     __self: this,
                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -23424,7 +23424,7 @@ class MovieView extends _reactDefault.default.Component {
                                         variant: "link",
                                         __source: {
                                             fileName: "src/components/movie-view/movie-view.jsx",
-                                            lineNumber: 121
+                                            lineNumber: 119
                                         },
                                         __self: this,
                                         children: "Go Back"
@@ -40558,7 +40558,7 @@ class ProfileView extends _reactDefault.default.Component {
                                     style: {
                                         width: '7rem'
                                     },
-                                    className: "mr-4",
+                                    className: "mr-4 mt-1",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
                                         lineNumber: 187
@@ -40614,7 +40614,7 @@ class ProfileView extends _reactDefault.default.Component {
                                     style: {
                                         width: '7rem'
                                     },
-                                    className: "mr-4",
+                                    className: "mr-4 mt-1",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
                                         lineNumber: 193
@@ -40660,7 +40660,7 @@ class ProfileView extends _reactDefault.default.Component {
                             as: _reactBootstrap.Col,
                             __source: {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 200
+                                lineNumber: 198
                             },
                             __self: this,
                             children: [
@@ -40668,10 +40668,10 @@ class ProfileView extends _reactDefault.default.Component {
                                     style: {
                                         width: '7rem'
                                     },
-                                    className: "mr-4",
+                                    className: "mr-4 mt-1",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 202
+                                        lineNumber: 200
                                     },
                                     __self: this,
                                     children: "Birthday:"
@@ -40685,7 +40685,7 @@ class ProfileView extends _reactDefault.default.Component {
                                     ,
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 203
+                                        lineNumber: 201
                                     },
                                     __self: this
                                 }),
@@ -40695,7 +40695,7 @@ class ProfileView extends _reactDefault.default.Component {
                                     ,
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 204
+                                        lineNumber: 202
                                     },
                                     __self: this,
                                     children: "Update"
@@ -40703,7 +40703,7 @@ class ProfileView extends _reactDefault.default.Component {
                                 /*#__PURE__*/ _jsxRuntime.jsx("br", {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 204
+                                        lineNumber: 202
                                     },
                                     __self: this
                                 })
@@ -40718,7 +40718,7 @@ class ProfileView extends _reactDefault.default.Component {
                     },
                     __source: {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 209
+                        lineNumber: 207
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -40727,7 +40727,7 @@ class ProfileView extends _reactDefault.default.Component {
                         ,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 210
+                            lineNumber: 208
                         },
                         __self: this,
                         children: "Delete Account"

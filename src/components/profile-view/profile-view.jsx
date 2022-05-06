@@ -181,25 +181,23 @@ export class ProfileView extends React.Component {
 
 				<h2 className='m-4' style={{ textAlign: 'center' }}>UPDATE USER INFO</h2>
 
-				<Form  >
+				<Form >
 
 					<Form.Group className='d-flex mb-3' as={Col}>
-						<Form.Label style={{ width: '7rem' }} className='mr-4'>Username:</Form.Label>
+						<Form.Label style={{ width: '7rem' }} className='mr-4 mt-1'>Username:</Form.Label>
 						<Form.Control md={3} className='mr-4' type='text' name='Username' defaultValue={username} onChange={(e) => this.setUsername(e.target.value)} />
 						<Button variant="primary" className='mr-0' onClick={() => this.handleUpdate('Username')}>Update</Button><br />
 					</Form.Group>
 
 					<Form.Group className='d-flex mb-3' as={Col}>
-						<Form.Label style={{ width: '7rem' }} className='mr-4'>Email:</Form.Label>
+						<Form.Label style={{ width: '7rem' }} className='mr-4 mt-1'>Email:</Form.Label>
 						<Form.Control className="mr-4" type='text' name='Email' defaultValue={email} onChange={(e) => this.setEmail(e.target.value)} />
 						<Button variant="primary" onClick={(e) => this.handleUpdate('Email')}>Update</Button><br />
 					</Form.Group>
 
-
-
 					<Form.Group className='d-flex mb-3
 					' as={Col}>
-						<Form.Label style={{ width: '7rem' }} className="mr-4">Birthday:</Form.Label>
+						<Form.Label style={{ width: '7rem' }} className="mr-4 mt-1">Birthday:</Form.Label>
 						<Form.Control className="mr-4" type='date' name='Birthday' defaultValue={birthday} onChange={(e) => this.setBirthday(e.target.value)} />
 						<Button variant="primary" onClick={(e) => this.handleUpdate('Birthday')}>Update</Button><br />
 					</Form.Group>
