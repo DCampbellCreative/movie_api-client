@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Container from 'react-bootstrap/Container';
 import { createStore } from 'redux';
@@ -12,16 +12,14 @@ import './index.scss';
 
 const store = createStore(moviesApp, devToolsEnhancer());
 
-class MyFlixApplication extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Container>
-          <MainView />
-        </Container>
-      </Provider>
-    );
-  }
+export const MyFlixApplication = () => {
+  return (
+    <Provider store={store}>
+      <Container>
+        <MainView />
+      </Container>
+    </Provider>
+  );
 }
 
 const container = document.getElementsByClassName('app-container')[0];

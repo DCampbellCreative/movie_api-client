@@ -80,22 +80,21 @@ export class ProfileView extends React.Component {
 			});
 	}
 
-	// updates user info
-	handleUpdate() {
+	// updates user info accepts changed value as parameter to update each field separately
+	handleUpdate(type) {
 		const username = localStorage.getItem('user');
 		const token = localStorage.getItem('token');
+
+		const changedValue = {
+			Username: this.state.newUsername,
+			Email: this.state.newEmail,
+			Birthday: this.state.newBirthday
+		}
+
 		console.log(token);
 		axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`,
 			{
-				Username: this.state.newUsername
-					? this.state.newUsername
-					: this.state.Username,
-				Email: this.state.newEmail
-					? this.state.newEmail
-					: this.state.Email,
-				Birthday: this.state.newBirthday
-					? this.state.newBirthday
-					: this.state.birthday
+				[type]: changedValue[type]
 			},
 			{
 				headers: { Authorization: `Bearer ${token}` },
@@ -105,7 +104,6 @@ export class ProfileView extends React.Component {
 				alert(`Info Updated!`);
 				this.setState({
 					username: response.data.Username,
-					password: response.data.Password,
 					email: response.data.Email,
 					birthday: response.data.Birthday
 				});
@@ -133,80 +131,85 @@ export class ProfileView extends React.Component {
 	deleteUser() {
 		const token = localStorage.getItem('token');
 		const username = localStorage.getItem('user');
-		axios.delete(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`, {
-			headers: { Authorization: `Bearer ${token}` }
-		})
-			.then((response) => {
-				console.log(response);
-				alert(username + ' your account has been deleted.');
-				localStorage.removeItem('user');
-				localStorage.removeItem('token');
-				window.open('/', '_self');
+		if (confirm(username + 'Are you sure you want to delete your account?')) {
+			axios.delete(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}`, {
+				headers: { Authorization: `Bearer ${token}` }
 			})
-			.catch(function (error) {
-				console.log(error);
-			})
+				.then((response) => {
+					console.log(response);
+
+					alert(username + ' your account has been deleted.');
+					localStorage.removeItem('user');
+					localStorage.removeItem('token');
+					window.open('/', '_self');
+				})
+				.catch(function (error) {
+					console.log(error);
+				})
+		}
 	}
 
 	render() {
 		const { user } = this.props;
-		const { username, email, favoriteMovies } = this.state;
+		const { username, email, birthday, favoriteMovies } = this.state;
 		return (
-			<div>
-				<h2 style={{ textTransform: 'capitalize', textAlign: 'center', margin: '2%' }}>{username}'s Account</h2>
+			<React.Fragment>
+				<h2 className='m-4' style={{ textTransform: 'uppercase', textAlign: 'center' }}>{username}'s Account</h2>
 				<Card className='profile-card'>
 
 					<h4 className='center border-bottom'> <b>Username:</b> {username}</h4>
 					<h4 className='center border-bottom'> <b>Email:</b> {email}</h4>
-					<h4 style={{ padding: '2% ' }}>Your Favorites</h4>
-					<ul>
-						{favoriteMovies.map((movieId) => {
-							const movie = this.state.movies.filter((mov) => mov._id === movieId)[0] || {};
-							console.log(movie)
-							return <li style={{ padding: '1%' }} key={movieId}>{movie.Title} - {movie.Description}
-								<Button variant="link" onClick={() => this.removeFavoriteMovie(movie._id)}>Remove From Favorites</Button>
-							</li>
+					<h4 className='center mb-3'>Your Favorites</h4>
 
-						})}
-					</ul>
+					{favoriteMovies < 1 ?
+						<h4 className='center mb-3' style={{ color: 'red' }}>No favorites, select some in movie details!</h4> :
+						<Row>
+							{favoriteMovies.map((movieId) => {
+								const movie = this.state.movies.filter((mov) => mov._id === movieId)[0] || {};
+								console.log(movie)
+								return <Row style={{ display: 'flex' }}>
+									<Card className='text-center ml-5 mb-3' style={{ padding: '1%' }} key={movie._id}>
+										<Card.Img className='mb-2' style={{ width: '10rem', alignSelf: 'center' }} crossOrigin="anonymous" src={movie.ImagePath} />
+										{movie.Title}
+										<Button variant="link" onClick={() => this.removeFavoriteMovie(movie._id)}>- Remove From Favorites</Button>
+									</Card>
+								</Row>
+							})}
+						</Row>}
 
 				</Card>
 
+				<h2 className='m-4' style={{ textAlign: 'center' }}>UPDATE USER INFO</h2>
 
-				<h2 style={{ textAlign: 'center' }}>Update User Info</h2>
+				<Form  >
 
-				<Form className='mx-auto' style={{ width: '65%', textAlign: 'right', }}>
+					<Form.Group className='d-flex mb-3' as={Col}>
+						<Form.Label style={{ width: '7rem' }} className='mr-4'>Username:</Form.Label>
+						<Form.Control md={3} className='mr-4' type='text' name='Username' defaultValue={username} onChange={(e) => this.setUsername(e.target.value)} />
+						<Button variant="primary" className='mr-0' onClick={() => this.handleUpdate('Username')}>Update</Button><br />
+					</Form.Group>
 
-
-					<Form.Group >
-
-						<Form.Label style={{ margin: '2%' }} className='update-form-label'>Username:</Form.Label>
-						<Form.Control style={{ margin: '2%' }} type='text' name='Username' defaultValue={username} onChange={(e) => this.setUsername(e.target.value)} />
-						<Button variant="primary" className='mr-0' onClick={() => this.handleUpdate()}>Update</Button><br />
-
+					<Form.Group className='d-flex mb-3' as={Col}>
+						<Form.Label style={{ width: '7rem' }} className='mr-4'>Email:</Form.Label>
+						<Form.Control className="mr-4" type='text' name='Email' defaultValue={email} onChange={(e) => this.setEmail(e.target.value)} />
+						<Button variant="primary" onClick={(e) => this.handleUpdate('Email')}>Update</Button><br />
 					</Form.Group>
 
 
-					<Form.Group >
-						<Form.Label style={{ margin: '2% ' }} className='update-form-label'>Email:</Form.Label>
-						<Form.Control style={{ margin: '2% ' }} type='text' name='Email' defaultValue={email} onChange={(e) => this.setEmail(e.target.value)} />
-						<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
-					</Form.Group>
-					{/* <label>Password:</label>
-					<input type='text' name='Password' defaultValue={`********`} />
-					<Button variant="primary" onClick={(e) => this.handleUpdate(user.Password)}>Update</Button><br /> */}
 
-					<Form.Group >
-						<Form.Label style={{ margin: '2% ' }} className='update-form-label'>Birthday:</Form.Label>
-						<Form.Control style={{ margin: '2% ' }} type='date' name='Birthday' defaultValue={user.Birthday} onChange={(e) => this.setEmail(e.target.value)} />
-						<Button variant="primary" onClick={(e) => this.handleUpdate()}>Update</Button><br />
+					<Form.Group className='d-flex mb-3
+					' as={Col}>
+						<Form.Label style={{ width: '7rem' }} className="mr-4">Birthday:</Form.Label>
+						<Form.Control className="mr-4" type='date' name='Birthday' defaultValue={birthday} onChange={(e) => this.setBirthday(e.target.value)} />
+						<Button variant="primary" onClick={(e) => this.handleUpdate('Birthday')}>Update</Button><br />
 					</Form.Group>
+
 				</Form>
 
 				<div style={{ textAlign: 'center', margin: '3%' }}>
 					<Button variant="danger" onClick={() => this.deleteUser()}>Delete Account</Button>
 				</div>
-			</div >
+			</React.Fragment>
 		)
 	}
 }

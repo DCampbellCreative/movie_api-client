@@ -6,30 +6,23 @@ body {
   font-family: "Work Sans", sans-serif;
 }
 
-// .my-flix {
-//   color: $color;
-// }
-
-// HEADER
+// NAVBAR
 
 .nav-bar {
   height: 100px;
   background-color: #5f9ea0 !important;
 }
 
+.nav-bar-item {
+  font-size: 1rem;
+  width: 6rem;
+}
+
 // MOVIE CARD
 
-.card {
+.movie-card {
   height: 700px;
   margin-bottom: 1rem;
-}
-
-.card-img-top {
-  width: 100%;
-}
-
-.card-body {
-  font-weight: 300;
 }
 
 // MOVIE VIEW
@@ -39,11 +32,11 @@ body {
   flex-direction: row;
   height: auto;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .movie-image {
-  width: 30%;
+  height: auto;
   border-right: 1px solid lightgrey;
 }
 
@@ -54,20 +47,17 @@ body {
 }
 
 .movie-title {
-  font-size: x-large;
+  font-size: 2rem;
   font-weight: 600;
-  margin-left: 3%;
 }
 
 .movie-description {
-  font-size: 20px;
-  margin-left: 3%;
-  margin-right: 10%;
+  font-size: 1rem;
   font-weight: 200;
 }
 
 .card-action {
-  font-size: 20px;
+  font-size: 1.1rem;
 }
 
 // DETAILS VIEWS
@@ -107,4 +97,61 @@ body {
 
 .error {
   border: 1px solid red !important;
+}
+
+@media screen and (max-width: 768px) {
+  // MOVIE LIST
+  .movie-card {
+    height: 600px;
+  }
+  .card-text {
+    font-size: 0.75rem;
+  }
+  // MOVIE VIEW
+  .movie-title {
+    font-size: 1.5rem;
+  }
+
+  .movie-description {
+    font-size: 0.75rem;
+  }
+
+  .card-action {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  // MOVIE LIST
+  .movie-card {
+    height: 500px;
+  }
+
+  .movie-image {
+    border-right: none;
+    border-bottom: 1px solid lightgrey;
+  }
+
+  .card-text {
+    font-size: 0.5rem;
+  }
+
+  // MOVIE VIEW
+  .movie-title {
+    font-size: 1.25rem;
+  }
+
+  .movie-description {
+    font-size: 1rem;
+  }
+
+  .card-action {
+    font-size: 1rem;
+  }
+
+  // NAVIGATION
+  .nav-bar-item {
+    font-size: 0.75rem;
+    width: 4rem;
+  }
 }

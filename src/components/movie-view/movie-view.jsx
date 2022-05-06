@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
+import { Card, Button, Col, Row, Image, Container } from 'react-bootstrap'
 import axios from 'axios';
 
 
@@ -19,18 +14,27 @@ export class MovieView extends React.Component {
     movies: []
   }
 
-  addFavoriteMovie(movieId) {
+  componentDidMount() {
+    const accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.getUser(accessToken);
+    }
+  }
+
+  getUser(token) {
     const username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    console.log(token);
-    axios.post(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {}, {
+    axios.get('https://dcampbellcreative-movie-api.herokuapp.com/users', {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(response => {
-        console.log(response.data);
-        alert(`Added to Favorites`);
+        const allUsers = response.data;
+        const user = allUsers.filter((res) => res.Username === username)[0];
+        console.log(user);
         this.setState({
-          favoriteMovies: response.data.FavoriteMovies,
+          username: user.Username,
+          email: user.Email,
+          birthday: user.Birthday,
+          favoriteMovies: user.FavoriteMovies
         });
       })
       .catch(function (error) {
@@ -38,37 +42,90 @@ export class MovieView extends React.Component {
       });
   }
 
+
+  addFavoriteMovie(movieId) {
+    const username = this.state.username;
+    const favoriteMovies = this.state.favoriteMovies
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    if (favoriteMovies.includes(movieId)) {
+      axios.put(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(response => {
+          console.log(response.data);
+          alert(`Removed from Favorites`);
+          this.setState({
+            favoriteMovies: response.data.FavoriteMovies,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    } else {
+      axios.post(`https://dcampbellcreative-movie-api.herokuapp.com/users/${username}/movies/${movieId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(response => {
+          console.log(response.data);
+          alert(`Added to Favorites`);
+          this.setState({
+            favoriteMovies: response.data.FavoriteMovies,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
+
+
+
   render() {
     const { movie } = this.props;
-    const { username, email, favoriteMovies } = this.state;
+    const { favoriteMovies } = this.state;
 
     return (
-      <Card className='movie-view-card'>
 
-        <img className='movie-image' crossOrigin="anonymous" src={movie.ImagePath} />
+      <Card className='mt-5'>
 
-        <div className='card-column-right'>
-          <span className="movie-title">{movie.Title}</span>
-          <div className="movie-description">
-            Description: {movie.Description}
-          </div>
+        <Row>
+          <Col md={5} sm={5} lg={5}>
 
-          <div >
-            <Link to={`/directors/${movie.Director.Name}`}>
-              <Button className='card-action' variant="link">Director</Button>
-            </Link>
+            <Card.Img className='movie-image' crossOrigin="anonymous" src={movie.ImagePath} />
 
-            <Link to={`/genres/${movie.Genre.Name}`}>
-              <Button className='card-action' variant="link">Genre</Button>
-            </Link>
-            <Link to={`/`}>
-              <Button className='card-action' variant="link">Go Back</Button>
-            </Link>
-            <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>Add to Favorites</Button>
-          </div>
+          </Col>
+          <Col className='card-column-right' md={7} sm={7} lg={7}>
 
-        </div>
+            <span className="movie-title">{movie.Title}</span>
+            <p className="movie-description mr-3">
+              Description: {movie.Description}
+            </p>
+
+            <Row >
+              <Link to={`/directors/${movie.Director.Name}`}>
+                <Button className='card-action' variant="link">Director</Button>
+              </Link>
+              <Link to={`/genres/${movie.Genre.Name}`}>
+                <Button className='card-action' variant="link">Genre</Button>
+              </Link>
+
+              {favoriteMovies.includes(movie._id) ?
+                <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>- Remove from Favorites</Button> :
+                <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>+ Add to Favorites</Button>
+              }
+            </Row>
+            <Row><Link to={`/`}>
+              <Button className='card-action center' variant="link">Go Back</Button>
+            </Link></Row>
+
+          </Col>
+        </Row>
+
       </Card>
+
     );
   }
 }
