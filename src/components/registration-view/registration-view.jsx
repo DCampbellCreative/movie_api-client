@@ -53,7 +53,7 @@ export function RegistrationView(props) {
 
       <Form.Group controlId="formBirthday" className="mb-3">
         <Form.Label>Birthday:</Form.Label>
-        <Form.Control placeholder="Birthday" type="text" value={birthday} className={`${errorMessage ? 'text-danger' : ''}`} onFocus={() => setErrorMessage('')} onChange={e => setBirthday(e.target.value)} />
+        <Form.Control placeholder="Birthday" type="date" value={birthday} className={`${errorMessage ? 'text-danger' : ''}`} onFocus={() => setErrorMessage('')} onChange={e => setBirthday(e.target.value)} />
       </Form.Group>
 
       {errorMessage && <p className="mb-3 text-center" style={{ color: 'red' }}>{errorMessage}</p>}

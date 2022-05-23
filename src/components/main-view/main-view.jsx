@@ -25,20 +25,41 @@ class MainView extends React.Component {
     };
   }
 
+  // get user and movies and on mount
+  // componentDidMount() {
+  //   const accessToken = localStorage.getItem('token');
+  //   if (accessToken !== null) {
+  //     this.setState({
+  //       user: localStorage.getItem('user')
+  //     });
+  //     this.getMovies(accessToken);
+  //   }
+  // }
+
   componentDidMount() {
-    let accessToken = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem('user')
       });
-      this.getMovies(accessToken);
     }
+    this.getMovies();
   }
 
-  getMovies(token) {
-    axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+  // getMovies(token) {
+  //   axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies', {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //     .then(response => {
+  //       this.props.setMovies(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
+
+  getMovies() {
+    axios.get('https://dcampbellcreative-movie-api.herokuapp.com/movies')
       .then(response => {
         this.props.setMovies(response.data);
       })
@@ -84,13 +105,26 @@ class MainView extends React.Component {
 
         <Row className="main-view justify-content-md-center" style={{ marginTop: "100px" }}>
           {/* Route to home */}
-          <Route exact path="/" render={() => {
+          {/* <Route exact path="/" render={() => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <MoviesList movies={movies} />;
+          }} /> */}
+
+          <Route exact path="/" render={() => {
+            if (movies?.length === 0) return <div className="main-view" />;
+            return <MoviesList movies={movies} />;
           }} />
+
+          <Route path="/login" render={() => {
+            if (user) return <Redirect to="/" />
+            return <Col>
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            </Col>
+          }} />
+
           <Route path="/register" render={() => {
             if (user) return <Redirect to="/" />
             return <Col>
@@ -100,10 +134,7 @@ class MainView extends React.Component {
 
           {/* Route to movie-view */}
           <Route path="/movies/:movieId" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (movies?.length === 0) return <div className="main-view" />;
             return <Col md={10}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack} />
             </Col>
@@ -111,10 +142,7 @@ class MainView extends React.Component {
 
           {/* Route to genre-view */}
           <Route exact path="/genres/:name" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (movies?.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
             </Col>
@@ -122,10 +150,7 @@ class MainView extends React.Component {
 
           {/* Route to director-view */}
           <Route exact path="/directors/:name" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (movies?.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
             </Col>

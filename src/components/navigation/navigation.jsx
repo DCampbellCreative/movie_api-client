@@ -9,19 +9,24 @@ export const Navigation = (props) => {
 			<Container fluid>
 				<Navbar.Brand md={3} className='mr-auto' style={{ fontSize: '3rem', fontWeight: '600', color: 'whitesmoke' }}>FLIXFIX</Navbar.Brand>
 
-				{props.user && (
-					<Nav justify className='ml-auto'>
-						<Nav.Link className='nav-bar-item' style={{ color: 'white' }} as={Link} to={`/`} >
-							Movies
-						</Nav.Link>
-						<Nav.Link className='nav-bar-item' style={{ color: 'white' }} as={Link} to={`/users/${props.user}`} >
-							Account
-						</Nav.Link>
-						<Link to={`/`}>
+
+				<Nav justify className='ml-auto'>
+					<Nav.Link className='nav-bar-item' style={{ color: 'white' }} as={Link} to={`/`} >
+						Movies
+					</Nav.Link>
+					<Nav.Link className='nav-bar-item' style={{ color: 'white' }} as={Link} to={`/users/${props.user}`} >
+						Account
+					</Nav.Link>
+					{props.user ?
+
+						(<Link to={`/`}>
 							<Button className='ml-3 nav-bar-item' variant='link' style={{ color: 'white', border: '1px solid white' }} onClick={() => props.onLoggedOut()}>Logout</Button>
-						</Link>
-					</Nav>
-				)}
+						</Link>) :
+						(<Link to={`/login`}>
+							<Button className='ml-3 nav-bar-item' variant='link' style={{ color: 'white', border: '1px solid white' }}>Login</Button>
+						</Link>)}
+				</Nav>
+
 			</Container>
 		</Navbar >
 

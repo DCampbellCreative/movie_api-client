@@ -29,17 +29,20 @@ export class MovieView extends React.Component {
       .then(response => {
         const allUsers = response.data;
         const user = allUsers.filter((res) => res.Username === username)[0];
-        console.log(user);
+        // console.log(user);
+
         this.setState({
           username: user.Username,
           email: user.Email,
           birthday: user.Birthday,
           favoriteMovies: user.FavoriteMovies
         });
+        console.log(this.state)
       })
       .catch(function (error) {
         console.log(error);
       });
+
   }
 
 
@@ -85,7 +88,9 @@ export class MovieView extends React.Component {
 
   render() {
     const { movie } = this.props;
-    const { favoriteMovies } = this.state;
+    const { favoriteMovies, username } = this.state;
+
+    const checkFavs = (id) => favoriteMovies.includes(id) ? '- Remove from Favorites' : '+ Add to Favorites'
 
     return (
 
@@ -109,11 +114,21 @@ export class MovieView extends React.Component {
               <Link to={`/genres/${movie.Genre.Name}`}>
                 <Button className='card-action' variant="link">Genre</Button>
               </Link>
+              {/* {user ?
 
-              {favoriteMovies.includes(movie._id) ?
-                <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>- Remove from Favorites</Button> :
-                <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>+ Add to Favorites</Button>
+                (favoriteMovies.includes(movie._id) ?
+                  <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>- Remove from Favorites</Button> :
+                  <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>+ Add to Favorites</Button>
+                )
+                :
+                (<p className='card-action'>Login to save favorites</p>)} */}
+              {
+                username ? <Button className='card-action' variant="link" onClick={() => this.addFavoriteMovie(movie._id)}>{checkFavs(movie._id)}</Button>
+                  : <Link to={`/login`}>
+                    <Button className='card-action' variant="link">Login to Save Favorites</Button>
+                  </Link>
               }
+
             </Row>
             <Row><Link to={`/`}>
               <Button className='card-action center' variant="link">Go Back</Button>
