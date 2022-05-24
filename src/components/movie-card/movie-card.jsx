@@ -10,12 +10,13 @@ export class MovieCard extends React.Component {
 
     return (
       <Card className="movie-card">
-        <Image variant="top" crossOrigin="anonymous" src={movie.ImagePath} />
-        <Card.Body>
+        <Image variant="top" crossOrigin="anonymous" src={movie.ImagePath} style={{ borderBottom: "1px solid lightgrey" }} />
+        <Card.Body className="movie-card-body" >
           <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
-          <Link to={`/movies/${movie._id}`}>See Details</Link>
+          <Card.Text style={{ textOverflow: "ellipsis" }}>{movie.Description}</Card.Text>
+
         </Card.Body>
+        <Link style={{ paddingBottom: "7px", paddingRight: "10px", textAlign: "right" }} to={`/movies/${movie._id}`}>See More</Link>
       </Card>
     );
   }

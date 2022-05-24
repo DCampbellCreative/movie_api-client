@@ -11,8 +11,12 @@ body {
   width: 6rem;
 }
 .movie-card {
-  height: 700px;
+  height: 35rem;
   margin-bottom: 1rem;
+}
+.movie-card-body {
+  font-size: 0.8rem;
+  overflow: hidden;
 }
 .movie-view-card {
   display: flex;
@@ -22,7 +26,7 @@ body {
   margin-top: 50px;
 }
 .movie-image {
-  height: auto;
+  height: 100%;
   border-right: 1px solid lightgrey;
 }
 .card-column-right {
@@ -68,8 +72,8 @@ body {
   border: 1px solid red !important;
 }
 @media screen and (max-width: 768px) {
-  .movie-card {
-    height: 600px;
+  .movie-card-body {
+    font-size: 0.75rem;
   }
 
   .card-text {

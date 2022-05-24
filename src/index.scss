@@ -21,8 +21,13 @@ body {
 // MOVIE CARD
 
 .movie-card {
-  height: 700px;
+  height: 35rem;
   margin-bottom: 1rem;
+}
+
+.movie-card-body {
+  font-size: 0.8rem;
+  overflow: hidden;
 }
 
 // MOVIE VIEW
@@ -36,7 +41,8 @@ body {
 }
 
 .movie-image {
-  height: auto;
+  // min-height: 500px;
+  height: 100%;
   border-right: 1px solid lightgrey;
 }
 
@@ -101,9 +107,14 @@ body {
 
 @media screen and (max-width: 768px) {
   // MOVIE LIST
-  .movie-card {
-    height: 600px;
+  // .movie-card {
+  //   height: 35px;
+  // }
+
+  .movie-card-body {
+    font-size: 0.75rem;
   }
+
   .card-text {
     font-size: 0.75rem;
   }

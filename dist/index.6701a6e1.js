@@ -42638,6 +42638,9 @@ class MovieCard extends _reactDefault.default.Component {
                     variant: "top",
                     crossOrigin: "anonymous",
                     src: movie.ImagePath,
+                    style: {
+                        borderBottom: "1px solid lightgrey"
+                    },
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
                         lineNumber: 13
@@ -42645,6 +42648,7 @@ class MovieCard extends _reactDefault.default.Component {
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card.Body, {
+                    className: "movie-card-body",
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
                         lineNumber: 14
@@ -42660,23 +42664,31 @@ class MovieCard extends _reactDefault.default.Component {
                             children: movie.Title
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Text, {
+                            style: {
+                                textOverflow: "ellipsis"
+                            },
                             __source: {
                                 fileName: "src/components/movie-card/movie-card.jsx",
                                 lineNumber: 16
                             },
                             __self: this,
                             children: movie.Description
-                        }),
-                        /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
-                            to: `/movies/${movie._id}`,
-                            __source: {
-                                fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 17
-                            },
-                            __self: this,
-                            children: "See Details"
                         })
                     ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
+                    style: {
+                        paddingBottom: "7px",
+                        paddingRight: "10px",
+                        textAlign: "right"
+                    },
+                    to: `/movies/${movie._id}`,
+                    __source: {
+                        fileName: "src/components/movie-card/movie-card.jsx",
+                        lineNumber: 19
+                    },
+                    __self: this,
+                    children: "See More"
                 })
             ]
         }));
